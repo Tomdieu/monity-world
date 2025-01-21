@@ -26,13 +26,13 @@ const chartConfig = {
 
 export function UserGrowth() {
     return (
-        <ChartContainer config={chartConfig}>
+        <ChartContainer className="w-full h-60" config={chartConfig}>
             <AreaChart
                 accessibilityLayer
                 data={chartData}
                 margin={{
-                    left: 12,
-                    right: 12,
+                    left: 0,
+                    right: 0,
                 }}
             >
                 <CartesianGrid vertical={true} />
@@ -40,10 +40,11 @@ export function UserGrowth() {
                     dataKey="month"
                     tickLine={false}
                     axisLine={false}
-                    tickMargin={8}
+                    tickMargin={1}
                     tickFormatter={(value) => value.slice(0, 3)}
                 />
-                <YAxis dataKey={"desktop"} />
+                <YAxis dataKey={"desktop"} tickLine={false}
+                    axisLine={false} />
                 <ChartTooltip
                     cursor={false}
                     content={<ChartTooltipContent indicator="dot" hideLabel />}
@@ -54,6 +55,7 @@ export function UserGrowth() {
                     fill="var(--color-desktop)"
                     fillOpacity={0.1}
                     stroke="var(--color-desktop)"
+                    strokeWidth={1}
                 />
             </AreaChart>
         </ChartContainer>
