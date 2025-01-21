@@ -2,10 +2,7 @@
 import React from 'react'
 import Footer from '@/components/Footer'
 import SplashScreen from '@/components/SplashScreen'
-import { z } from 'zod'
 
-import { Button } from "@/components/ui/button"
-import { Switch } from '@/components/ui/switch'
 import TwoFactorVerification from '@/components/2fa-verification'
 
 
