@@ -86,7 +86,7 @@ function TransactionsPage() {
             <div className="flex items-center p-3 py-2 gap-2 border rounded-full flex-1">
               <Search className="size-5 text-muted-foreground" />
               <input
-                className="border-none outline-none"
+                className="border-none outline-none flex-1 bg-transparent"
                 placeholder="Search transactions"
                 type="search"
               />
