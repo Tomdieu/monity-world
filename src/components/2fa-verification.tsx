@@ -153,7 +153,7 @@ export default function TwoFactorVerification({email, phone_number}: { email?: s
                     <Button
                         className="w-full bg-emerald-500 hover:bg-emerald-600"
                         onClick={handleConfirmCode}
-                        disabled={verificationCode.length !== 6}
+                        disabled={verificationCode.length !== 7}
                     >
                         Confirm code
                     </Button>
