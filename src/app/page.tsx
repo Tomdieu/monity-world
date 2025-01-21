@@ -11,7 +11,7 @@ export default function Home() {
     // Setup the timeout for redirect
     const redirectTimeout = setTimeout(() => {
       router.push('/login');
-    }, 5000); // Changed to 5000ms (5 seconds)
+    }, 2000); // Changed to 5000ms (5 seconds)
 
     // Cleanup function to clear timeout if component unmounts
     return () => clearTimeout(redirectTimeout);
