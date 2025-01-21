@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import localFont from 'next/font/local'
+import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   title: "Monity world",
@@ -26,9 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-          suppressHydrationWarning
-        className={`antialiased flex h-screen w-screen ${Inter.variable}`}
+        suppressHydrationWarning
+        className={`antialiased flex h-screen w-full relative ${Inter.variable}`}
       >
+        <Toaster />
         {children}
       </body>
     </html>
