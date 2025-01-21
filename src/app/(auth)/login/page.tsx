@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -27,8 +26,6 @@ import { Input } from "@/components/ui/input"
 import { Switch } from '@/components/ui/switch'
 import { useRouter } from 'next/navigation'
 
-type Props = {}
-
 const formSchema = z.object({
     enter_as: z.string(),
     email: z.string(),
@@ -36,7 +33,7 @@ const formSchema = z.object({
     remember_me: z.boolean()
 })
 
-const LoginPage = (props: Props) => {
+const LoginPage = () => {
 
     const router = useRouter()
 
