@@ -27,7 +27,7 @@ export default function TwoFactorVerification({email, phone_number}: { email?: s
     }
 
     const handleConfirmCode = () => {
-        if (verificationCode.length === 6) {
+        if (verificationCode.length === 7) {
             setIsSuccessful(true)
 
             setTimeout(()=>{
