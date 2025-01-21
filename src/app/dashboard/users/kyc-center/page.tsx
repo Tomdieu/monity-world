@@ -2,8 +2,6 @@
 import React from 'react'
 import { MdPeopleAlt, MdVerified } from "react-icons/md";
 import { Ban, Search, TrendingDown, TrendingUp } from "lucide-react";
-import { PiPackageDuotone } from "react-icons/pi";
-import Image from "next/image";
 import UserFilter from '@/components/dashboard/Users/UserFilter';
 import KycUserTable from '@/components/dashboard/Users/KycUserTable';
 import { userKycData } from '@/constants/data';
