@@ -118,8 +118,8 @@ function TransactionSidebar({ className }: { className?: string }) {
                     : "text-neutral-700 bg-neutral-100"
                 )}
               >
-                {icon(isActive, false)}
-                <span className="text-sm font-medium">{label}</span>
+                {icon(isActive)}
+                <span className="text-xs lg:text-sm font-medium">{label}</span>
               </div>
             </Link>
           );
