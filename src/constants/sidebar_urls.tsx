@@ -5,9 +5,9 @@ import { CiCreditCard1 } from "react-icons/ci";
 import Image from "next/image";
 import { CiDollar } from "react-icons/ci";
 import { BiSupport } from "react-icons/bi";
-const ProjectIcon = ({className}:{className?:string})=><Image src={"/icons/project-icon.png"} alt={"project icon"} width={"24"} height={24}  className={className}/>
+const ProjectIcon = ({className}:{className?:string})=><Image src={"/icons/project-icon.svg"} alt={"project icon"} width={"24"} height={24}  className={className}/>
 
-const FinanceIcon = ({className}:{className?:string})=><Image src={"/icons/finance-icon.png"} alt={"finance icon"} width={"24"} height={24}  className={className}/>
+const FinanceIcon = ({className}:{className?:string})=><Image src={"/icons/finance-icon.svg"} alt={"finance icon"} width={"24"} height={24}  className={className}/>
 
 export const sidebarUrls = [
     {
@@ -16,9 +16,9 @@ export const sidebarUrls = [
         "url": "/dashboard"
     },
     {
-        "title": "Profile",
+        "title": "Users",
         "icon": LuUsersRound,
-        "url": "/dashboard/profile"
+        "url": "/dashboard/users"
     },
     {
         "title": "Transactions",
@@ -42,7 +42,7 @@ export const sidebarUrls = [
     },
     {
         "title":"Finance",
-        "icon": CiDollar,
+        "icon": FinanceIcon,
         "url":"/dashboard/finance"
     },
     {
