@@ -1,11 +1,13 @@
 "use client";
 import React from "react";
-import { ArrowLeft, Copy, Flag } from "lucide-react";
+import { ArrowLeft, Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import FlagAlert from "./FlagAlert";
+import { useToast } from "@/hooks/use-toast"
+
 
 interface KycCustomerProfileProps {
   customer: {
@@ -25,9 +27,17 @@ const KycCustomerProfile = ({
   customer,
   className,
 }: KycCustomerProfileProps) => {
+
+  const { toast } = useToast()
+
   const handleCopyUserId = () => {
     navigator.clipboard.writeText(customer.userId);
+    toast({
+      description: "Id Copy",
+    })
   };
+
+
 
   const router = useRouter();
 
