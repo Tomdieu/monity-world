@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const Inter = localFont({
   src: [
     {
-      path: "../../public//fonts/Inter-VariableFont_opsz,wght.ttf",
+      path: "../../public/fonts/Inter-VariableFont_opsz,wght.ttf",
       weight: "400",
       style: "normal",
     },
