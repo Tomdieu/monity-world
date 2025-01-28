@@ -401,3 +401,141 @@ export const usersLeaderBoard = [
       title: "Updated basic personal information"
     }
   ];
+
+
+  export const sampleTransactionsFunds = [
+    {
+      id: '1',
+      transType: 'Transfer',
+      transId: '#CM5836hjG7',
+      dateTime: 'Tue-12-11-24',
+      amount: 20000,
+      source: {
+        name: 'Nguh Fabrice',
+        accountId: 'Account ID',
+        avatar: '/images/img2.svg'
+      },
+      destination: {
+        name: 'John Smith',
+        accountId: 'Account ID',
+        avatar: '/images/img2.svg'
+      },
+      status: 'Pending',
+      remark: 'Processing'
+    },
+    {
+      id: '2',
+      transType: 'Transfer',
+      transId: '#CM5836hjG8',
+      dateTime: 'Tue-12-11-24',
+      amount: 35000,
+      source: {
+        name: 'Sarah Wilson',
+        accountId: 'Account ID',
+        avatar: '/images/img2.svg'
+      },
+      destination: {
+        name: 'Mike Johnson',
+        accountId: 'Account ID',
+        avatar: '/images/img2.svg'
+      },
+      status: 'Failed',
+      remark: 'Declined'
+    },
+    {
+      id: '3',
+      transType: 'Card recharge',
+      transId: '#CM5836hjG9',
+      dateTime: 'Tue-12-11-24',
+      amount: 15000,
+      source: {
+        name: 'Emma Davis',
+        accountId: 'Account ID',
+        avatar: '/images/img2.svg'
+      },
+      destination: {
+        type: 'card',
+        cardId: 'CM4571J'
+      },
+      status: 'Completed',
+      remark: 'Good'
+    },
+    {
+      id: '4',
+      transType: 'Transfer',
+      transId: '#CM5836hjH1',
+      dateTime: 'Tue-12-11-24',
+      amount: 50000,
+      source: {
+        name: 'Alex Thompson',
+        accountId: 'Account ID',
+        avatar: '/images/img2.svg'
+      },
+      destination: {
+        name: 'Lisa Anderson',
+        accountId: 'Account ID',
+        avatar: '/images/img2.svg'
+      },
+      status: 'Flagged',
+      remark: 'Scam attempt'
+    },
+    {
+      id: '5',
+      transType: 'Transfer',
+      transId: '#CM5836hjH2',
+      dateTime: 'Tue-12-11-24',
+      amount: 25000,
+      source: {
+        name: 'David Miller',
+        accountId: 'Account ID',
+        avatar: '/images/img2.svg'
+      },
+      destination: {
+        name: 'Rachel Green',
+        accountId: 'Account ID',
+        avatar: '/images/img2.svg'
+      },
+      status: 'Completed',
+      remark: 'Good'
+    }
+  ];
+
+  // Example usage with sample data
+  export const sampleMessages = [
+    {
+      id: '1',
+      sender: {
+        name: 'Nguh fabs demo',
+        accountId: 'Account ID',
+        avatar: '/images/img2.svg'
+      },
+      receiver: {
+        name: 'Nguh fabs demo',
+        accountId: 'Account ID',
+        avatar: '/images/img2.svg'
+      },
+      message: 'Please i will like you to sent it as soon as posible',
+      status: 'Request',
+      timestamp: '8:38 AM',
+      hasAudio: true
+    },
+    {
+      id: '2',
+      sender: {
+        name: 'Nguh fabs demo',
+        accountId: 'Account ID',
+        avatar: '/images/img2.svg'
+      },
+      receiver: {
+        name: 'Nguh fabs demo',
+        accountId: 'Account ID',
+        avatar: '/images/img2.svg'
+      },
+      message: 'Please i will like you to sent it as soon as posible',
+      status: 'First time',
+      timestamp: '8:38 AM',
+      hasAudio: true
+    },
+    // Add more sample messages as needed
+  ];
+  
