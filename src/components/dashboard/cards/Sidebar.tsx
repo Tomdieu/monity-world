@@ -31,7 +31,7 @@ function CardsSidebar({ className }: { className?: string }) {
       ),
     },
     {
-      href: "/dashboard/savings/group",
+      href: "/dashboard/cards/virtual",
       label: "Virtual cards",
       icon: (isActive) => (
         <CiCreditCard2
@@ -43,7 +43,7 @@ function CardsSidebar({ className }: { className?: string }) {
       ),
     },
     {
-      href: "/dashboard/savings/group-chats",
+      href: "/dashboard/cards/create",
       label: "Create card",
       icon: (isActive) => (
         <Plus
