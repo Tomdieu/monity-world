@@ -42,6 +42,29 @@ interface StatCardProps {
   variant?: "default" | "success" | "warning" | "danger";
 }
 
+interface FilterOptions {
+  cardType: string[];
+  status: CardStatus[];
+  dateAdded: string[];
+  balance: string[];
+  expirationDate: string[];
+}
+
+interface FilterState {
+  cardType: string;
+  status: CardStatus | '';
+  dateAdded: string;
+  balance: string;
+  expirationDate: string;
+}
+
+interface FilterBarProps {
+  options: FilterOptions;
+  filters: FilterState;
+  onFilterChange: (key: keyof FilterState, value: string) => void;
+  onReset: () => void;
+}
+
 // Reusable Components
 const StatCard: React.FC<StatCardProps> = ({
   title,
@@ -109,23 +132,74 @@ const SearchBar: React.FC = () => (
   </div>
 );
 
-const FilterBar: React.FC = () => (
+const FilterBar: React.FC<FilterBarProps> = ({ options, filters, onFilterChange, onReset }) => (
   <div className="flex items-center gap-4 py-2 px-3 bg-white border rounded-3xl">
     <div className="flex items-center">
       <Filter className="h-5 w-5 text-gray-600" />
       <span className="ml-2">Filter By</span>
     </div>
-    {["Card Type", "Status", "Date Added", "Balance", "Expiration Date"].map(
-      (filter) => (
-        <button
-          key={filter}
-          className="px-4 py-2 bg-gray-50 rounded-lg text-gray-600 hover:bg-gray-100"
-        >
-          {filter}
-        </button>
-      )
-    )}
-    <button className="ml-auto text-purple-600 flex items-center gap-1 font-semibold select-none"><IoReload className=""/> Reset Filter</button>
+    
+    <select
+      value={filters.cardType}
+      onChange={(e) => onFilterChange('cardType', e.target.value)}
+      className="px-4 py-2 bg-gray-50 rounded-lg text-gray-600 hover:bg-gray-100 cursor-pointer"
+    >
+      <option value="">Card Type</option>
+      {options.cardType.map((type) => (
+        <option key={type} value={type}>{type}</option>
+      ))}
+    </select>
+
+    <select
+      value={filters.status}
+      onChange={(e) => onFilterChange('status', e.target.value as CardStatus)}
+      className="px-4 py-2 bg-gray-50 rounded-lg text-gray-600 hover:bg-gray-100 cursor-pointer"
+    >
+      <option value="">Status</option>
+      {options.status.map((status) => (
+        <option key={status} value={status}>{status}</option>
+      ))}
+    </select>
+
+    <select
+      value={filters.dateAdded}
+      onChange={(e) => onFilterChange('dateAdded', e.target.value)}
+      className="px-4 py-2 bg-gray-50 rounded-lg text-gray-600 hover:bg-gray-100 cursor-pointer"
+    >
+      <option value="">Date Added</option>
+      {options.dateAdded.map((date) => (
+        <option key={date} value={date}>{date}</option>
+      ))}
+    </select>
+
+    <select
+      value={filters.balance}
+      onChange={(e) => onFilterChange('balance', e.target.value)}
+      className="px-4 py-2 bg-gray-50 rounded-lg text-gray-600 hover:bg-gray-100 cursor-pointer"
+    >
+      <option value="">Balance</option>
+      {options.balance.map((balance) => (
+        <option key={balance} value={balance}>{balance}</option>
+      ))}
+    </select>
+
+    <select
+      value={filters.expirationDate}
+      onChange={(e) => onFilterChange('expirationDate', e.target.value)}
+      className="px-4 py-2 bg-gray-50 rounded-lg text-gray-600 hover:bg-gray-100 cursor-pointer"
+    >
+      <option value="">Expiration Date</option>
+      {options.expirationDate.map((date) => (
+        <option key={date} value={date}>{date}</option>
+      ))}
+    </select>
+
+    <button 
+      onClick={onReset}
+      className="ml-auto text-purple-600 flex items-center gap-1 font-semibold select-none"
+    >
+      <IoReload className=""/> Reset Filter
+    </button>
   </div>
 );
 
@@ -159,7 +233,7 @@ const CardTable: React.FC<{ data: CardData[] }> = ({ data }) => (
       <tbody className="divide-y divide-gray-100">
         {data.map((card) => (
           <tr key={card.id} className="hover:bg-gray-50">
-            <td className="px-4 py-3 text-sm"><Link href={`/dashboard/cards/${card.id}`}>{card.id}</Link></td>
+            <td className="px-4 py-3 text-sm"><Link href={`/dashboard/cards/${card.id}`}>#{card.id}</Link></td>
             <td className="px-4 py-3 text-sm">{card.cardType}</td>
             <td className="px-4 py-3 text-sm">{card.cardNumber}</td>
             <td className="px-4 py-3 text-sm flex items-center">
@@ -210,6 +284,36 @@ const CardTable: React.FC<{ data: CardData[] }> = ({ data }) => (
 
 // Main Dashboard Component
 const CardDashboard: React.FC = () => {
+  const [filters, setFilters] = React.useState<FilterState>({
+    cardType: '',
+    status: '',
+    dateAdded: '',
+    balance: '',
+    expirationDate: ''
+  });
+
+  const filterOptions: FilterOptions = {
+    cardType: ['NFC', 'Visa Card'],
+    status: ['Active', 'Inactive', 'Suspended'],
+    dateAdded: ['Last 7 days', 'Last 30 days', 'Last 90 days'],
+    balance: ['0-1000', '1001-5000', '5001+'],
+    expirationDate: ['This Month', 'Next Month', 'Next 3 Months']
+  };
+
+  const handleFilterChange = (key: keyof FilterState, value: string) => {
+    setFilters(prev => ({ ...prev, [key]: value }));
+  };
+
+  const handleFilterReset = () => {
+    setFilters({
+      cardType: '',
+      status: '',
+      dateAdded: '',
+      balance: '',
+      expirationDate: ''
+    });
+  };
+
   const stats = [
     {
       title: "Total Cards",
@@ -246,7 +350,7 @@ const CardDashboard: React.FC = () => {
 
   const sampleData: CardData[] = [
     {
-      id: "#CM5836h",
+      id: "CM5836h",
       cardType: "NFC",
       cardNumber: "************2456",
       cardHolder: { name: "Ngeh Han demo", accountId: "Account ID" },
@@ -269,7 +373,12 @@ const CardDashboard: React.FC = () => {
       </div>
 
       <SearchBar />
-      <FilterBar />
+      <FilterBar 
+        options={filterOptions}
+        filters={filters}
+        onFilterChange={handleFilterChange}
+        onReset={handleFilterReset}
+      />
       <CardTable data={sampleData} />
     </div>
   );
