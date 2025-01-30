@@ -20,6 +20,26 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Project Structure
+
+```
+.env                  # Environment variables
+.env.example          # Example environment variables file
+.gitignore            # Git ignore file
+certificates/         # SSL certificates for development
+components.json       # Component configuration
+eslint.config.mjs     # ESLint configuration
+next-env.d.ts         # Next.js environment types
+next.config.ts        # Next.js configuration
+package.json          # Project dependencies and scripts
+postcss.config.mjs    # PostCSS configuration
+public/               # Static files served by Next.js
+README.md             # Project documentation
+src/                  # Source code for the application 
+tailwind.config.ts    # Tailwind CSS configuration
+tsconfig.json         # TypeScript configuration
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
