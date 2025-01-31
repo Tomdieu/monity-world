@@ -43,7 +43,7 @@ export const sidebarUrls = [
     {
         "title":"Finance",
         "icon": FinanceIcon,
-        "url":"/dashboard/finance"
+        "url":"/dashboard/finances"
     },
     {
         "title":"Support",
