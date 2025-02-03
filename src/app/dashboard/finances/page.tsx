@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function FinancePage() {
   return (
-    <div>
+    <div className='w-full'>
         <FinancialOverview accountSummary={sampleData.accountSummary}  monthlyReports={sampleData.monthlyReports} transactionOverview={sampleData.transactionOverview}/>
     </div>
   )
