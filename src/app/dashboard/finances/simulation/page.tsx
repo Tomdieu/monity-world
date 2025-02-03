@@ -96,7 +96,7 @@ const ChartSection: React.FC<{
               formatter={(value: number) => [`${value.toLocaleString()} XAF`, 'Value']}
             />
             <Area
-              type="monotone"
+              type="linear"
               dataKey="value"
               stroke={areaColor}
               fillOpacity={1}
