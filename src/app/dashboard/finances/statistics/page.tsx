@@ -4,7 +4,7 @@ import React from 'react'
 
 function StatisticsPage() {
   return (
-    <div>
+    <div className='h-full'>
       <Statistics data={sampleData}/>
     </div>
   )
