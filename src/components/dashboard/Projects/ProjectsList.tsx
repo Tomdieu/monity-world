@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Link from "next/link";
 
 interface ProjectTag {
   name: string;
@@ -42,6 +43,7 @@ interface Project {
 interface ProjectsListProps {
   projects: Project[];
   className?: string;
+  isApprove?: boolean;
 }
 
 const Filters: React.FC<{
@@ -129,9 +131,12 @@ const Filters: React.FC<{
   );
 };
 
-const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
+const ProjectCard: React.FC<{ project: Project; isApprove?: boolean }> = ({
+  project,
+  isApprove = true,
+}) => {
   return (
-    <div className="bg-white rounded-lg p-6 space-y-4">
+    <div className="bg-white rounded-lg p-6 space-y-4 border-t border-primary">
       <div className="flex justify-between items-start">
         <div>
           <div className="flex items-center gap-2 text-gray-500 text-sm mb-2">
@@ -139,7 +144,22 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
           </div>
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <h3 className="text-lg font-semibold">{project.title}</h3>
+              <Link
+                href={`/dashboard/projects/${!isApprove ? "pending/" : ""}${
+                  project.id
+                }`}
+                className=""
+              >
+                <h3
+                  className={cn(
+                    "text-lg font-semibold",
+                    !isApprove && "text-orange-600"
+                  )}
+                >
+                  {project.title}
+                </h3>
+              </Link>
+
               {project.isVerified && (
                 <BadgeCheck className="size-4 text-blue-500" />
               )}
@@ -156,17 +176,20 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             </div>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-0.5">
           <Button variant="ghost" size="icon">
-            <Heart className="size-5 text-gray-400" />
+            <Heart className="size-5 text-primary" />
           </Button>
           <Button variant="ghost" size="icon">
-            <Bookmark className="size-5 text-gray-400" />
+            <Bookmark className="size-5 text-primary" />
           </Button>
         </div>
       </div>
 
       <p className="text-gray-600">{project.description}</p>
+      <Link href={"#"} className="text-primary underline">
+        More
+      </Link>
 
       <div className="flex flex-wrap gap-2">
         {project.tags.map((tag, index) => (
@@ -185,29 +208,29 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       </div>
 
       <div className="grid grid-cols-4 gap-4 p-4 rounded-lg">
-        <div className="p-2 rounded-lg border py-2 bg-primary/5">
+        <div className="p-2.5 px-3 rounded-lg border py-2 flex flex-col gap-5 bg-primary/5">
           <span className="text-sm text-gray-500 block mb-1">
             Amount required
           </span>
-          <span className="font-semibold">
+          <span className="font-semibold text-lg">
             {project.amountRequired.toLocaleString()} XAF
           </span>
         </div>
-        <div className="p-2 rounded-lg border py-2 bg-gray-50">
+        <div className="p-2.5 px-3 rounded-lg border py-2 flex flex-col gap-5 bg-gray-50">
           <span className="text-sm text-gray-500 block mb-1">Donations</span>
-          <span className="font-semibold">{project.donations}</span>
+          <span className="font-semibold text-lg">{project.donations}</span>
         </div>
-        <div className="p-2 rounded-lg border py-2 bg-green-50">
+        <div className="p-2.5 px-3 rounded-lg border py-2 flex flex-col gap-5 bg-green-50">
           <span className="text-sm text-gray-500 block mb-1">
             Amount donated
           </span>
-          <span className="font-semibold">
+          <span className="font-semibold text-lg">
             {project.amountDonated.toLocaleString()} XAF
           </span>
         </div>
-        <div className="p-2 rounded-lg border py-2 bg-red-50">
+        <div className="p-2.5 px-3 rounded-lg border py-2 flex flex-col gap-5 bg-red-50">
           <span className="text-sm text-gray-500 block mb-1">Left over</span>
-          <span className="font-semibold text-red-500">
+          <span className="font-semibold text-lg">
             {project.leftOver.toLocaleString()} XAF
           </span>
         </div>
@@ -216,11 +239,15 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   );
 };
 
-const ProjectsList: React.FC<ProjectsListProps> = ({ projects, className }) => {
+const ProjectsList: React.FC<ProjectsListProps> = ({
+  projects,
+  className,
+  isApprove,
+}) => {
   const [searchTerm, setSearchTerm] = React.useState("");
 
   return (
-    <div className={cn("space-y-4", className)}>
+    <div className={cn("space-y-4 h-full", className)}>
       {/* Search */}
       <div className="flex gap-4">
         <div className="relative flex-1">
@@ -244,9 +271,13 @@ const ProjectsList: React.FC<ProjectsListProps> = ({ projects, className }) => {
       />
 
       {/* Projects List */}
-      <div className="space-y-4">
+      <div className="space-y-4 p-2 bg-white">
         {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+          <ProjectCard
+            isApprove={isApprove}
+            key={project.id}
+            project={project}
+          />
         ))}
       </div>
     </div>
@@ -257,6 +288,44 @@ const ProjectsList: React.FC<ProjectsListProps> = ({ projects, className }) => {
 export const sampleProjects: Project[] = [
   {
     id: "1",
+    title: "Fish Farming business",
+    location: "Bafoussam",
+    isVerified: true,
+    description:
+      "Our project focuses on sustainable fish farming to meet the growing demand for fresh, high-quality fish while preserving natural resources. By using eco-",
+    tags: [
+      { name: "Agriculture", type: "category" },
+      { name: "Farming", type: "category" },
+      { name: "small business", type: "category" },
+      { name: "Environmental", type: "category" },
+    ],
+    amountRequired: 300000,
+    donations: 3,
+    amountDonated: 29000,
+    leftOver: 20000,
+    postedTime: "3 hours ago",
+  },
+  {
+    id: "2",
+    title: "Fish Farming business",
+    location: "Bafoussam",
+    isVerified: true,
+    description:
+      "Our project focuses on sustainable fish farming to meet the growing demand for fresh, high-quality fish while preserving natural resources. By using eco-",
+    tags: [
+      { name: "Agriculture", type: "category" },
+      { name: "Farming", type: "category" },
+      { name: "small business", type: "category" },
+      { name: "Environmental", type: "category" },
+    ],
+    amountRequired: 300000,
+    donations: 3,
+    amountDonated: 29000,
+    leftOver: 20000,
+    postedTime: "3 hours ago",
+  },
+  {
+    id: "3",
     title: "Fish Farming business",
     location: "Bafoussam",
     isVerified: true,
