@@ -42,9 +42,9 @@ interface FinancialOverviewProps {
 }
 
 const StatCard: React.FC<{ label: string; value: number }> = ({ label, value }) => (
-  <div className="bg-white rounded-lg p-4">
-    <h3 className="text-sm text-gray-500 mb-2">{label}</h3>
-    <p className="text-xl font-semibold">
+  <div className="bg-white rounded-lg p-4 border">
+    <h3 className="text-sm text-muted-foreground mb-2">{label}</h3>
+    <p className="text-xl font-semibold text-muted-foreground">
       {value.toLocaleString()} XAF
     </p>
   </div>
@@ -59,8 +59,8 @@ const FinancialOverview: React.FC<FinancialOverviewProps> = ({
   return (
     <div className={cn("p-6 space-y-6", className)}>
       {/* User Account Section */}
-      <div>
-        <h2 className="text-xl text-blue-400 mb-4">User Account</h2>
+      <div className="bg-white p-4 rounded-lg">
+        <h2 className="text-xl text-primary font-semibold mb-4">User Account</h2>
         <div className="grid grid-cols-4 gap-4">
           <StatCard label="Total Balances" value={accountSummary.totalBalances} />
           <StatCard label="Savings Accounts" value={accountSummary.savingsAccounts} />
@@ -70,22 +70,22 @@ const FinancialOverview: React.FC<FinancialOverviewProps> = ({
       </div>
 
       {/* Transactions Overview */}
-      <div>
-        <h2 className="text-xl text-blue-400 mb-4">Transactions Overview</h2>
+      <div className="p-4 bg-primary/10 rounded-lg">
+        <h2 className="text-xl text-primary font-semibold mb-4">Transactions Overview</h2>
         <div className="grid grid-cols-4 gap-4">
-          <div className="bg-white rounded-lg p-4">
+          <div className="bg-white rounded-lg border p-4">
             <h3 className="text-sm text-gray-500 mb-2">Total Processed</h3>
             <p className="text-xl font-semibold">{transactionOverview.totalProcessed.toLocaleString()} XAF</p>
           </div>
-          <div className="bg-emerald-50 rounded-lg p-4">
+          <div className="bg-emerald-50 rounded-lg border p-4">
             <h3 className="text-sm text-gray-500 mb-2">Current Revenue</h3>
             <p className="text-xl font-semibold">{transactionOverview.currentRevenue.toLocaleString()} XAF</p>
           </div>
-          <div className="bg-red-50 rounded-lg p-4">
+          <div className="bg-red-50 rounded-lg border p-4">
             <h3 className="text-sm text-gray-500 mb-2">Operational costs</h3>
             <p className="text-xl font-semibold">{transactionOverview.operationalCosts.toLocaleString()} XAF</p>
           </div>
-          <div className="bg-white rounded-lg p-4">
+          <div className="bg-white rounded-lg border p-4">
             <h3 className="text-sm text-gray-500 mb-2">Net Balance</h3>
             <p className="text-xl font-semibold">{transactionOverview.netBalance.toLocaleString()} XAF</p>
           </div>
@@ -93,9 +93,9 @@ const FinancialOverview: React.FC<FinancialOverviewProps> = ({
       </div>
 
       {/* Financial Details Report */}
-      <div>
+      <div className="shadow-lg p-4 rounded-lg">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl text-blue-400">Financial details Report</h2>
+          <h2 className="text-xl text-primary font-semibold">Financial details Report</h2>
           <div className="flex items-center gap-4">
             <Select defaultValue="monthly">
               <SelectTrigger className="w-[180px]">
