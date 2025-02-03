@@ -80,27 +80,30 @@ const StatChart: React.FC<{
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={data}>
           <defs>
-            <linearGradient id={`gradient-${color}`} x1="0" y1="0" x2="0" y2="1">
+            <linearGradient
+              id={`gradient-${color}`}
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="1"
+            >
               <stop offset="5%" stopColor={color} stopOpacity={0.3} />
               <stop offset="95%" stopColor={color} stopOpacity={0} />
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
-          <XAxis 
-            dataKey="month" 
-            tick={{ fontSize: 12, fill: '#666' }}
-          />
-          <YAxis 
-            tick={{ fontSize: 12, fill: '#666' }}
+          <XAxis dataKey="month" tick={{ fontSize: 12, fill: "#666" }} />
+          <YAxis
+            tick={{ fontSize: 12, fill: "#666" }}
             ticks={[0, 100000, 200000, 300000, 400000, 500000]}
             tickFormatter={(value) => `${value / 1000}k`}
           />
-          <Tooltip 
+          <Tooltip
             formatter={(value: number) => `${value.toLocaleString()} XAF`}
             labelFormatter={(label) => `Month: ${label}`}
           />
           <Area
-            type="monotone"
+            type="linear"
             dataKey="value"
             stroke={color}
             fill={`url(#gradient-${color})`}
@@ -111,41 +114,45 @@ const StatChart: React.FC<{
     </div>
 
     {/* Stats */}
-    <div className="flex items-center text-sm space-x-6">
-      <div>
-        <span className="text-gray-500">Total Saving Groups:</span>{" "}
-        <span className="font-medium">{stats.savingGroups}</span>
-      </div>
-      <div>
-        <span className="text-gray-500">Fees:</span>{" "}
-        <span className="font-medium">{stats.fees}%</span>
-      </div>
-      <div>
-        <span className="text-gray-500">Revenue:</span>{" "}
-        <span className="font-medium text-emerald-500">{stats.revenue.toFixed(2)}</span>
+    <div className="flex w-full gap-2 items-start">
+      <div className="w-3 h-3 bg-gray-400 rounded-full mt-0.5"></div>
+      <div className="flex flex-col items-start text-sm">
+        <div className="flex items-center">
+          <span className="text-gray-500 flex gap-2 items-center">
+            Total Saving Groups : 
+          </span>{" "}
+          <span className="font-medium">{stats.savingGroups}</span>
+        </div>
+        <div>
+          <span className="text-gray-500">Fees:</span>{" "}
+          <span className="font-medium text-red-500">{stats.fees}%</span>
+        </div>
+        <div>
+          <span className="text-gray-500">Revenue:</span>{" "}
+          <span className="font-medium text-emerald-500">
+            {stats.revenue.toFixed(2)}
+          </span>
+        </div>
       </div>
     </div>
 
-    <div className="mt-4 flex items-center justify-between border-t pt-4">
+    <div className="mt-4 flex items-end flex-col justify-between border-t pt-4">
       <div className="flex items-center gap-2">
         <span className="bg-red-100 w-3 h-3 rounded-sm"></span>
         <span className="text-sm">
           Total transactions: {stats.totalTransactions.toLocaleString()}
         </span>
       </div>
-      <div className="text-sm">
+      <div className="text-sm text-green-500">
         Total Revenue: {stats.totalRevenue.toLocaleString()} XAF
       </div>
     </div>
   </div>
 );
 
-const Statistics: React.FC<StatisticsProps> = ({
-  data,
-  className,
-}) => {
+const Statistics: React.FC<StatisticsProps> = ({ data, className }) => {
   return (
-    <div className={cn("p-6 space-y-6", className)}>
+    <div className={cn("p-6 flex-1 h-full pb-20 space-y-6", className)}>
       {/* Filters */}
       <div className="flex items-center justify-between p-2 bg-white rounded-lg">
         <div className="flex items-center gap-4">
@@ -153,7 +160,7 @@ const Statistics: React.FC<StatisticsProps> = ({
             <Filter className="size-4 text-gray-500" />
             <span className="text-gray-600">Filter By</span>
           </div>
-          
+
           <div className="flex items-center gap-3">
             <Select defaultValue="all">
               <SelectTrigger className="w-[180px]">
@@ -246,8 +253,8 @@ export const sampleData: StatisticsData = {
     totalTransactions: 2359,
     totalRevenue: 0,
     savingGroups: 1035,
-    fees: 3.00,
-    revenue: 0.60,
+    fees: 3.0,
+    revenue: 0.6,
   },
   fundsReceived: {
     data: [
@@ -267,8 +274,8 @@ export const sampleData: StatisticsData = {
     totalTransactions: 2359,
     totalRevenue: 0,
     savingGroups: 1035,
-    fees: 1.00,
-    revenue: 0.00,
+    fees: 1.0,
+    revenue: 0.0,
   },
 };
 
