@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { DiscardDialog } from "./FinanceDialogs";
 
 interface FeeRange {
   from: number;
@@ -37,7 +38,9 @@ const FeeRangeSection: React.FC<{
                 readOnly
                 className="w-full pl-4 pr-12 py-2 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">XAF</span>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+                XAF
+              </span>
             </div>
           </div>
           <div>
@@ -49,7 +52,9 @@ const FeeRangeSection: React.FC<{
                 readOnly
                 className="w-full pl-4 pr-12 py-2 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">XAF</span>
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
+                XAF
+              </span>
             </div>
           </div>
           <div>
@@ -89,24 +94,27 @@ const TransactionFees: React.FC<TransactionFeesProps> = ({
   onReturn,
   className,
 }) => {
+  const [isDiscardOpen,setIsDiscard] = useState(false) 
   return (
-    <div className={cn("max-w-7xl mx-auto p-6", className)}>
+    <div className={cn("w-full p-6 flex flex-col gap-3", className)}>
+      <DiscardDialog open={isDiscardOpen} onCancel={()=>setIsDiscard(false)} onConfirm={()=>{setIsDiscard(false)}} />
       {/* Return Button */}
+      <div>
       <Button
         variant="ghost"
         onClick={onReturn}
-        className="mb-6 hover:bg-gray-100"
+        className="mb-6 hover:bg-gray-100 bg-transparent hover:bg-transparent"
       >
-        <ArrowLeft className="size-4 mr-2" />
+        <div className="bg-primary/10 rounded-full p-2">
+          <ArrowLeft className="size-4 text-primary" />
+        </div>
         Return
       </Button>
 
+      </div>
       {/* Main Charges Sections */}
       <div className="grid grid-cols-2 gap-6 mb-8">
-        <FeeRangeSection
-          title="Sending charges"
-          ranges={sendingCharges}
-        />
+        <FeeRangeSection title="Sending charges" ranges={sendingCharges} />
         <FeeRangeSection
           title="Withdrawal charges"
           ranges={withdrawalCharges}
@@ -128,6 +136,14 @@ const TransactionFees: React.FC<TransactionFeesProps> = ({
           fee={projectFundingFee}
         />
       </div>
+      <div className="flex items-center  justify-center gap-5 py-5 w-full shadow-lg">
+        <Button onClick={()=>setIsDiscard(true)} size={"lg"} variant={"destructive"}>
+          Discard changes
+        </Button>
+        <Button size={"lg"} variant={"success"}>
+          Save changes
+        </Button>
+      </div>
     </div>
   );
 };
@@ -136,21 +152,21 @@ const TransactionFees: React.FC<TransactionFeesProps> = ({
 export const sampleFees = {
   sendingCharges: [
     { from: 0, to: 5000, fee: 0.25 },
-    { from: 5001, to: 30000, fee: 0.20 },
+    { from: 5001, to: 30000, fee: 0.2 },
     { from: 30001, to: 100000, fee: 0.15 },
-    { from: 100001, to: 500000, fee: 0.10 },
+    { from: 100001, to: 500000, fee: 0.1 },
     { from: 500001, to: 1000000, fee: 0.05 },
   ],
   withdrawalCharges: [
-    { from: 0, to: 5000, fee: 1.50 },
-    { from: 5001, to: 30000, fee: 1.30 },
-    { from: 30001, to: 100000, fee: 1.20 },
-    { from: 100001, to: 500000, fee: 1.00 },
-    { from: 500001, to: 1000000, fee: 1.00 },
+    { from: 0, to: 5000, fee: 1.5 },
+    { from: 5001, to: 30000, fee: 1.3 },
+    { from: 30001, to: 100000, fee: 1.2 },
+    { from: 100001, to: 500000, fee: 1.0 },
+    { from: 500001, to: 1000000, fee: 1.0 },
   ],
-  savingsManagementFee: 1.50,
-  cardTransactionFee: 1.50,
-  projectFundingFee: 1.50,
+  savingsManagementFee: 1.5,
+  cardTransactionFee: 1.5,
+  projectFundingFee: 1.5,
 };
 
 export default TransactionFees;
