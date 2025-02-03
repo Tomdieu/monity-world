@@ -4,7 +4,7 @@ import React from 'react'
 function ApprovedProjects() {
 
   return (
-    <div className='flex flex-col gap-5 p-5'>
+    <div className='flex flex-col flex-1 gap-5 p-5'>
         <ProjectsList projects={sampleProjects}/>
     </div>
   )
