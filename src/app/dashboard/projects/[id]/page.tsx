@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import { cn } from "@/lib/utils";
@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface ProjectDetailProps {
   project: {
@@ -48,14 +50,14 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
   className,
 }) => {
   return (
-    <div className={cn("max-w-5xl mx-auto p-6", className)}>
+    <div className={cn("w-full p-6 pb-11", className)}>
       {/* Return Button */}
       <Button
         variant="ghost"
         onClick={onReturn}
-        className="mb-6 hover:bg-blue-50 text-blue-500"
+        className="mb-6 hover:bg-blue-50 text-muted-foreground"
       >
-        <ArrowLeft className="size-4 mr-2" />
+        <ArrowLeft className="size-4 mr-2 text-primary" />
         Return
       </Button>
 
@@ -64,7 +66,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
         {project.tags.map((tag, index) => (
           <span
             key={index}
-            className="px-4 py-2 bg-blue-50 text-blue-500 rounded-full text-sm"
+            className="px-4 py-2 border border-primary bg-primary/5 text-primary font-semibold rounded-full text-sm"
           >
             {tag}
           </span>
@@ -72,55 +74,67 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
       </div>
 
       {/* Project Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-8">
-        <div className="bg-gray-50 p-4 rounded-lg">
-          <span className="text-sm text-gray-500 block mb-1">Amount required</span>
-          <span className="text-lg font-semibold">
+      <div className="grid grid-cols-4 items-center gap-4 mb-8">
+        <div className="bg-blue-50 flex flex-col gap-3 px-5 py-3 rounded-xl border-2">
+          <span className="text-sm text-black/80 block mb-1">
+            Amount required
+          </span>
+          <span className="text-2xl font-semibold">
             {project.stats.amountRequired.toLocaleString()} XAF
           </span>
         </div>
 
-        <div className="bg-blue-50 p-4 rounded-lg">
-          <span className="text-sm text-gray-500 block mb-1">Amount donated</span>
-          <span className="text-lg font-semibold text-blue-500">
+        <div className="bg-primary/5 flex flex-col gap-3 px-5 py-3 rounded-xl">
+          <span className="text-sm text-primary font-light block mb-1">
+            Amount donated
+          </span>
+          <span className="text-2xl font-semibold text-primary">
             {project.stats.amountDonated.toLocaleString()} XAF
           </span>
         </div>
 
-        <div className="bg-gray-50 p-4 rounded-lg">
-          <div className="flex items-center justify-between">
-            <div>
-              <span className="text-sm text-gray-500 block mb-1">Donations</span>
-              <span className="text-lg font-semibold">{project.stats.donations}</span>
+        <div className="bg-gray-50 flex flex-col gap-3 px-5 py-3 rounded-xl border-2">
+          <span className="text-sm text-gray-500 block">Donations</span>
+          <div className="flex flex-col">
+            <div className="flex gap-5 items-center justify-between">
+              <span className="text-2xl font-semibold">
+                {project.stats.donations}
+              </span>
+              <Button
+                className="w-fit rounded-full bg-gray-400 text-white font-semibold"
+                size="sm"
+              >
+                See donors
+              </Button>
             </div>
-            <Button variant="secondary" size="sm">
-              See donors
-            </Button>
           </div>
         </div>
 
-        <div className="bg-red-50 p-4 rounded-lg">
+        <div className="bg-red-50 flex flex-col gap-3 px-5 py-3 rounded-xl">
           <span className="text-sm text-gray-500 block mb-1">Left over</span>
-          <span className="text-lg font-semibold text-red-500">
+          <span className="text-2xl font-semibold">
             {project.stats.leftOver.toLocaleString()} XAF
           </span>
         </div>
       </div>
 
       {/* Business Plan Button */}
-      <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white mb-8">
+      <Button
+        size={"lg"}
+        className="w-full bg-primary hover:bg-primary/95 text-white mb-8"
+      >
         See full bussines plan
         <ExternalLink className="size-4 ml-2" />
       </Button>
 
       {/* Image Gallery */}
-      <div className="grid grid-cols-5 gap-4 mb-8">
+      <div className="grid grid-cols-5 gap-2 mb-8">
         {project.images.map((image, index) => (
           <div
             key={index}
             className={cn(
-              "relative aspect-square rounded-lg overflow-hidden",
-              index === project.images.length - 1 && "bg-gray-900"
+              "relative aspect-square rounded-xl overflow-hidden",
+              index === project.images.length - 1 && ""
             )}
           >
             <Image
@@ -130,95 +144,107 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({
               className="object-cover"
             />
             {index === project.images.length - 1 && (
-              <div className="absolute inset-0 flex items-center justify-center text-white font-semibold text-lg">
-                See all
+              <div className="absolute inset-0 bg-black/30 flex items-center justify-center text-white font-semibold text-lg">
+                <Link href={"#"} className="font-semibold text-xl">
+                  See all
+                </Link>
               </div>
             )}
           </div>
         ))}
       </div>
 
-      {/* User Profile Section */}
-      <div className="grid grid-cols-3 gap-8">
-        {/* Left Column - Avatar and Basic Info */}
-        <div className="flex flex-col items-center text-center">
-          <div className="relative">
-            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-blue-500">
+      <div className="grid grid-cols-12 gap-5">
+        {/* User Profile Section */}
+        <div className="grid grid-cols-3 p-3 py-4 col-span-9 gap-8 border rounded-md shadow-md">
+          {/* Left Column - Avatar and Basic Info */}
+          <div className="flex flex-col items-center text-center">
+            <div className="relative">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-blue-500">
+                <Image
+                  src={user.avatar}
+                  alt={user.name}
+                  width={128}
+                  height={128}
+                  className="object-cover"
+                />
+              </div>
+              {user.isVerified && (
+                <div className="absolute bottom-1 right-1 bg-emerald-500 rounded-full p-1">
+                  <BadgeCheck className="size-5 text-white" />
+                </div>
+              )}
+            </div>
+            <h2 className="text-lg font-semibold mt-3">{user.name}</h2>
+            <p className="text-sm text-gray-500">
+              @{user.name.toLowerCase().replace(" ", "")}
+            </p>
+          </div>
+
+          {/* Middle Column - Contact Info */}
+          <div className="space-y-4 flex flex-col items-center justify-center">
+            <div className="flex items-center gap-2 text-gray-600">
+              <MapPin className="size-4 text-primary" />
+              <span>{user.location}</span>
+            </div>
+            <div className="flex items-center gap-2 text-gray-600">
+              <Phone className="size-4 text-primary" />
+              <span>{user.phone}</span>
+            </div>
+            <div className="flex items-center gap-2 text-gray-600">
+              <Mail className="size-4 text-primary" />
+              <span>{user.email}</span>
+            </div>
+          </div>
+
+          {/* Right Column - Additional Info and Actions */}
+          <div className="space-y-4">
+            <div>
+              <span className="text-sm text-gray-500">Sex:</span>
+              <span className="ml-2 text-primary">{user.sex}</span>
+            </div>
+            <div>
+              <span className="text-sm text-gray-500">Profession:</span>
+              <span className="ml-2 text-primary">{user.profession}</span>
+            </div>
+            <div>
+              <span className="text-sm text-gray-500">NIU:</span>
+              <span className="ml-2">{user.niu}</span>
+            </div>
+            <div>
+              <span className="text-sm text-gray-500">CNI:</span>
+              <span className="ml-2">{user.cni}</span>
+            </div>
+            <Button className="w-full bg-gray-400 text-white">
+              See profile
+            </Button>
+          </div>
+        </div>
+
+        {/* Flag Alert Section */}
+        <div className="h-fit col-span-3 bg-emerald-50 border border-emerald-100 rounded-lg">
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-center justify-between gap-2 bg-emerald-600 w-full p-2 rounded-t-lg">
+              <span className="font-medium text-white">Flag alert!</span>
+
               <Image
-                src={user.avatar}
-                alt={user.name}
-                width={128}
-                height={128}
-                className="object-cover"
+                src={"/icons/flag-green.svg"}
+                alt="flag"
+                className="w-7 h-7"
+                width={24}
+                height={24}
               />
             </div>
-            {user.isVerified && (
-              <div className="absolute bottom-1 right-1 bg-emerald-500 rounded-full p-1">
-                <BadgeCheck className="size-5 text-white" />
-              </div>
-            )}
           </div>
-          <h2 className="text-lg font-semibold mt-3">{user.name}</h2>
-          <p className="text-sm text-gray-500">@{user.name.toLowerCase().replace(' ', '')}</p>
-        </div>
-
-        {/* Middle Column - Contact Info */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 text-gray-600">
-            <MapPin className="size-4" />
-            <span>{user.location}</span>
-          </div>
-          <div className="flex items-center gap-2 text-gray-600">
-            <Phone className="size-4" />
-            <span>{user.phone}</span>
-          </div>
-          <div className="flex items-center gap-2 text-gray-600">
-            <Mail className="size-4" />
-            <span>{user.email}</span>
+          <div className="flex flex-col gap-5 p-3">
+          <p className="mt-1 text-sm text-black">
+            Everything seems to be okay here
+          </p>
+          <p className="text-xs/3 text-emerald-500 mt-1">
+            We found nothing fishy
+          </p>
           </div>
         </div>
-
-        {/* Right Column - Additional Info and Actions */}
-        <div className="space-y-4">
-          <div>
-            <span className="text-sm text-gray-500">Sex:</span>
-            <span className="ml-2">{user.sex}</span>
-          </div>
-          <div>
-            <span className="text-sm text-gray-500">Profession:</span>
-            <span className="ml-2 text-blue-500">{user.profession}</span>
-          </div>
-          <div>
-            <span className="text-sm text-gray-500">NIU:</span>
-            <span className="ml-2">{user.niu}</span>
-          </div>
-          <div>
-            <span className="text-sm text-gray-500">CNI:</span>
-            <span className="ml-2">{user.cni}</span>
-          </div>
-          <Button variant="secondary" className="w-full">
-            See profile
-          </Button>
-        </div>
-      </div>
-
-      {/* Flag Alert Section */}
-      <div className="mt-6 bg-emerald-50 border border-emerald-100 rounded-lg p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Flag className="size-4 text-emerald-600" />
-            <span className="font-medium text-emerald-600">Flag alert!</span>
-          </div>
-          <Button variant="ghost" className="text-emerald-600 hover:bg-emerald-100">
-            Know more
-          </Button>
-        </div>
-        <p className="mt-1 text-sm text-emerald-600">
-          Everything seems to be okay here
-        </p>
-        <p className="text-xs text-emerald-500 mt-1">
-          We found nothing fishy
-        </p>
       </div>
     </div>
   );
@@ -232,19 +258,19 @@ export const sampleProjectDetail = {
       amountRequired: 300000,
       amountDonated: 29000,
       donations: 3,
-      leftOver: 20000
+      leftOver: 20000,
     },
     images: [
-      "/image1.jpg",
-      "/image2.jpg",
-      "/image3.jpg",
-      "/image4.jpg",
-      "/image5.jpg"
-    ]
+      "/images/img2.svg",
+      "/images/img2.svg",
+      "/images/img2.svg",
+      "/images/img2.svg",
+      "/images/img2.svg",
+    ],
   },
   user: {
     name: "Nguh Fabrice",
-    avatar: "/avatar.jpg",
+    avatar: "/images/img2.svg",
     isVerified: true,
     location: "Douala, Cameroon",
     phone: "+91 7048144030",
@@ -252,17 +278,19 @@ export const sampleProjectDetail = {
     sex: "M",
     profession: "Etudiante",
     niu: "155xs4×3245xc4",
-    cni: "155xs4×3245xc4"
-  }
+    cni: "155xs4×3245xc4",
+  },
 };
 
-
-function ProjectDetailPage(){
-
-    return (
-        <ProjectDetail project={sampleProjectDetail.project} user={sampleProjectDetail.user}    />
-    )
+function ProjectDetailPage() {
+  const router = useRouter();
+  return (
+    <ProjectDetail
+      project={sampleProjectDetail.project}
+      user={sampleProjectDetail.user}
+      onReturn={() => router.back()}
+    />
+  );
 }
 
-
-export default ProjectDetailPage
+export default ProjectDetailPage;
