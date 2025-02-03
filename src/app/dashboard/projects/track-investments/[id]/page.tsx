@@ -1,13 +1,20 @@
-"use client"
-import TrackInvestmentDetail, { sampleTransaction } from '@/components/dashboard/Projects/TrackInvestmentDetail'
-import React from 'react'
+"use client";
+import TrackInvestmentDetail, {
+  sampleTransaction,
+} from "@/components/dashboard/Projects/TrackInvestmentDetail";
+import { useRouter } from "next/navigation";
+import React from "react";
 
-function page() {
+function TrackInvestmentDetailPage() {
+  const router = useRouter();
   return (
-    <div>
-        <TrackInvestmentDetail transaction={sampleTransaction}/>
+    <div className="w-full">
+      <TrackInvestmentDetail
+        onReturn={() => router.back()}
+        transaction={sampleTransaction}
+      />
     </div>
-  )
+  );
 }
 
-export default page
+export default TrackInvestmentDetailPage;
