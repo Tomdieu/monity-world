@@ -24,19 +24,19 @@ function ProjectSidebar({ className }: { className?: string }) {
         <GoDotFill
           className={cn(
             "size-4",
-            isActive ? "text-green-400" : "text-primary group-hover:text-white"
+            isActive ? "text-green-400" : "text-green-500 group-hover:text-white"
           )}
         />
       ),
     },
     {
-      href: "/dashboard/projects/virtual",
+      href: "/dashboard/projects/pending",
       label: "Pending Projects",
       icon: (isActive) => (
         <GoDotFill
           className={cn(
             "size-4",
-            isActive ? "text-yellow-400" : "text-primary group-hover:text-white"
+            isActive ? "text-yellow-400" : "text-yellow-500 group-hover:text-white"
           )}
         />
       ),
@@ -49,7 +49,7 @@ function ProjectSidebar({ className }: { className?: string }) {
           className={cn(
             "size-4",
             isActive
-              ? "text-primary"
+              ? "text-white"
               : "text-primary group-hover:text-white transition-colors group-hover:[&>g>path:first-child]:fill-white group-hover:[&>g>path:last-child]:stroke-white"
           )}
         />
