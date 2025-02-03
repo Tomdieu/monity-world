@@ -1,11 +1,14 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, Search } from "lucide-react";
+import { ArrowLeft, RefreshCcw, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { BiCard, BiTransfer } from "react-icons/bi";
+import { CiCreditCard1 } from "react-icons/ci";
 import { GoDotFill } from "react-icons/go";
+import { IoReload } from "react-icons/io5";
 
 type SidebarLink = {
   href: string;
@@ -21,10 +24,10 @@ function FinancesSidebar({ className }: { className?: string }) {
       href: "/dashboard/finances",
       label: "Financial overview",
       icon: (isActive) => (
-        <GoDotFill
+        <RefreshCcw
           className={cn(
             "size-4",
-            isActive ? "text-green-400" : "text-primary group-hover:text-white"
+            isActive ? "text-white" : "text-primary group-hover:text-white"
           )}
         />
       ),
@@ -33,10 +36,10 @@ function FinancesSidebar({ className }: { className?: string }) {
       href: "/dashboard/finances/fees",
       label: "Transaction Fees",
       icon: (isActive) => (
-        <GoDotFill
+        <BiTransfer
           className={cn(
             "size-4",
-            isActive ? "text-yellow-400" : "text-primary group-hover:text-white"
+            isActive ? "text-white" : "text-primary group-hover:text-white"
           )}
         />
       ),
@@ -45,7 +48,7 @@ function FinancesSidebar({ className }: { className?: string }) {
       href: "/dashboard/finances/international-fees",
       label: "Internation Fees",
       icon: (isActive) => (
-        <Search
+        <CiCreditCard1
           className={cn(
             "size-4",
             isActive
@@ -111,8 +114,8 @@ function FinancesSidebar({ className }: { className?: string }) {
         {sidebarLinks.map(({ href, label, icon }) => {
           const isActiveLink = (url: string) => {
             // Exact match for dashboard
-            if (url === "/dashboard/projects") {
-              return pathname === "/dashboard/projects";
+            if (url === "/dashboard/finances") {
+              return pathname === "/dashboard/finances";
             }
             // For other routes, check if the pathname starts with the URL
             // This prevents partial matches like /dashboard matching /dashboard-settings
