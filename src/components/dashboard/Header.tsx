@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import Image from "next/image";
 import {
@@ -13,8 +14,11 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/
 import {Avatar, AvatarFallback, AvatarImage,} from "@/components/ui/avatar"
 import {IoMdSettings} from "react-icons/io";
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 function DashboardHeader() {
+    const pathName = usePathname()
+    const routeSections = pathName.split('/')
     return (
         <div className={"w-full flex items-center space-x-28 p-2 bg-white"}>
             <Link href={"/dashboard"} className={"px-5"}>
@@ -25,17 +29,22 @@ function DashboardHeader() {
                     <Breadcrumb>
                         <BreadcrumbList>
                             <BreadcrumbItem>
-                                <BreadcrumbLink href="/" className={"text-xs"}>Home</BreadcrumbLink>
+                                <BreadcrumbLink href="/dashboard" className={"text-xs font-semibold"}>Home</BreadcrumbLink>
                             </BreadcrumbItem>
-                            <BreadcrumbSeparator>
+                            {routeSections.length > 2 && (
+                                <>
+                                <BreadcrumbSeparator>
                                 /
                             </BreadcrumbSeparator>
                             <BreadcrumbItem>
-                                <BreadcrumbLink href="/users" className={"text-black text-sm"}>Users</BreadcrumbLink>
+                                <BreadcrumbLink href="/users" className={"text-black text-sm capitalize"}>{routeSections[2]}</BreadcrumbLink>
                             </BreadcrumbItem>
+                                </>
+                            )}
+                            
                         </BreadcrumbList>
                     </Breadcrumb>
-                    <span className={"font-bold text-sm"}>Users</span>
+                    <span className={"font-bold text-sm capitalize"}>{routeSections[2]}</span>
                 </div>
                 <div className={"w-full flex flex-1 items-center space-x-20"}>
                     <form className={"w-full"}>
