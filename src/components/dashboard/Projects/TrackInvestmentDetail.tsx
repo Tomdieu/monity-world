@@ -46,25 +46,26 @@ const TrackInvestmentDetail: React.FC<TrackInvestmentDetailProps> = ({
   };
 
   return (
-    <div className={cn("max-w-4xl mx-auto p-6 space-y-6", className)}>
+    <div className={cn("p-6 space-y-6", className)}>
       {/* Return Button */}
       <Button
-        variant="ghost"
         onClick={onReturn}
-        className="text-gray-600 hover:bg-gray-100"
+        className="text-gray-600 hover:bg-gray-100 bg-transparent hover:bg-transparent shadow-none"
       >
-        <ArrowLeft className="size-4 mr-2" />
+        <div className="p-2 rounded-full bg-primary/10">
+        <ArrowLeft className="size-4 text-primary" />
+        </div>
         Return
       </Button>
 
       {/* General Information */}
       <div className="bg-white rounded-lg p-6">
         <h2 className="text-lg font-semibold mb-6">General Information</h2>
-        <div className="grid grid-cols-6 gap-6">
-          <div>
+        <div className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6">
+          <div className="border rounded-md p-3">
             <label className="text-sm text-gray-500 mb-1 block">Transaction ID</label>
-            <div className="flex items-center gap-2">
-              <span className="text-blue-500">{transaction.general.id}</span>
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-primary font-bold">{transaction.general.id}</span>
               <button 
                 onClick={() => handleCopy(transaction.general.id)}
                 className="hover:bg-gray-100 p-1 rounded-md transition-colors"
@@ -74,12 +75,12 @@ const TrackInvestmentDetail: React.FC<TrackInvestmentDetailProps> = ({
             </div>
           </div>
 
-          <div>
+          <div className="border rounded-md p-3">
             <label className="text-sm text-gray-500 mb-1 block">Transaction Type</label>
-            <span className="text-gray-700">{transaction.general.type}</span>
+            <span className="text-primary font-bold">{transaction.general.type}</span>
           </div>
 
-          <div>
+          <div className="border rounded-md p-3">
             <label className="text-sm text-gray-500 mb-1 block">Transaction Status</label>
             <span className={cn(
               "flex items-center gap-1.5 text-sm",
@@ -92,19 +93,19 @@ const TrackInvestmentDetail: React.FC<TrackInvestmentDetailProps> = ({
             </span>
           </div>
 
-          <div>
+          <div className="border rounded-md p-3">
             <label className="text-sm text-gray-500 mb-1 block">Currency</label>
-            <span className="text-gray-700">{transaction.general.currency}</span>
+            <span className="text-primary font-bold">{transaction.general.currency}</span>
           </div>
 
-          <div>
+          <div className="border rounded-md p-3">
             <label className="text-sm text-gray-500 mb-1 block">Date</label>
-            <span className="text-gray-700">{transaction.general.date}</span>
+            <span className="text-primary font-bold">{transaction.general.date}</span>
           </div>
 
-          <div>
+          <div className="border rounded-md p-3">
             <label className="text-sm text-gray-500 mb-1 block">Time</label>
-            <span className="text-gray-700">{transaction.general.time}</span>
+            <span className="text-primary font-bold">{transaction.general.time}</span>
           </div>
         </div>
       </div>
@@ -112,11 +113,11 @@ const TrackInvestmentDetail: React.FC<TrackInvestmentDetailProps> = ({
       {/* Amount Details */}
       <div className="bg-white rounded-lg p-6">
         <h2 className="text-lg font-semibold mb-6">Amount Details</h2>
-        <div className="grid grid-cols-4 gap-6">
-          <div>
+        <div className="flex flex-wrap items-center gap-6">
+          <div className="border rounded-md p-3">
             <label className="text-sm text-gray-500 mb-1 block">Transaction Amount</label>
             <div className="flex items-center gap-2">
-              <span className="text-gray-700">
+              <span className="text-primary font-semibold text-lg">
                 {transaction.amount.transactionAmount.toLocaleString()}
               </span>
               <button 
@@ -128,10 +129,10 @@ const TrackInvestmentDetail: React.FC<TrackInvestmentDetailProps> = ({
             </div>
           </div>
 
-          <div>
+          <div className="border rounded-md p-3">
             <label className="text-sm text-gray-500 mb-1 block">Transaction Fees</label>
             <div className="flex items-center gap-2">
-              <span className="text-gray-700">
+              <span className="text-primary font-semibold text-lg">
                 {transaction.amount.transactionFees.toLocaleString()}
               </span>
               <button 
@@ -143,16 +144,16 @@ const TrackInvestmentDetail: React.FC<TrackInvestmentDetailProps> = ({
             </div>
           </div>
 
-          <div>
+          <div className="border rounded-md p-3">
             <label className="text-sm text-gray-500 mb-1 block">Total Debited</label>
-            <span className="text-gray-700">
+            <span className="text-primary font-semibold text-lg">
               {transaction.amount.totalDebited.toLocaleString()}
             </span>
           </div>
 
           {transaction.amount.reference && (
-            <div>
-              <label className="text-sm text-gray-500 mb-1 block">Reference</label>
+            <div className="border rounded-md p-3">
+              <label className="text-lg text-primary mb-1 block">Reference</label>
               <span className="text-sm text-gray-500">
                 {transaction.amount.reference}
               </span>
@@ -166,9 +167,10 @@ const TrackInvestmentDetail: React.FC<TrackInvestmentDetailProps> = ({
         <h2 className="text-lg font-semibold mb-6">Involved Parties</h2>
         <div className="grid grid-cols-3 gap-6">
           {/* Sender */}
-          <div className="border border-blue-100 rounded-lg p-4">
+          <div className="border-2 border-primary rounded-lg p-4">
             <label className="text-sm text-gray-500 mb-3 block">Sender</label>
-            <div className="flex items-center gap-3 mb-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3 mb-3">
               <Image
                 src={transaction.parties.sender.avatar}
                 alt={transaction.parties.sender.name}
@@ -180,26 +182,29 @@ const TrackInvestmentDetail: React.FC<TrackInvestmentDetailProps> = ({
                 <p className="text-sm font-medium">{transaction.parties.sender.name}</p>
                 <p className="text-xs text-gray-500">{transaction.parties.sender.accountId}</p>
               </div>
-            </div>
-            <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white">
+                </div>
+
+              <Button className="w-fit bg-primary hover:bg-primary/90 text-white">
               See profil
             </Button>
+            </div>
+            
           </div>
 
           {/* Payment Method */}
           <div className="flex items-center justify-center">
             <div className="text-center">
               <label className="text-sm text-gray-500 mb-2 block">Payment Method</label>
-              <span className="text-blue-500">{transaction.parties.paymentMethod}</span>
+              <span className="text-primary">{transaction.parties.paymentMethod}</span>
             </div>
           </div>
 
           {/* Recipient */}
-          <div className="border border-emerald-100 rounded-lg p-4">
+          <div className="border-2 border-emerald-500 rounded-lg p-4">
             <label className="text-sm text-gray-500 mb-3 block">Recipient</label>
             <div className="flex items-center justify-between">
               <span className="text-gray-700">{transaction.parties.recipient.id}</span>
-              <Button className="bg-blue-500 hover:bg-blue-600 text-white">
+              <Button className=" bg-primary hover:bg-primary/90 text-white">
                 See project
               </Button>
             </div>
@@ -230,7 +235,7 @@ export const sampleTransaction = {
     sender: {
       name: "Nguh fabs demo",
       accountId: "Account ID",
-      avatar: "/path/to/avatar.jpg"
+      avatar: "/images/img2.svg"
     },
     paymentMethod: "Digital wallet",
     recipient: {
