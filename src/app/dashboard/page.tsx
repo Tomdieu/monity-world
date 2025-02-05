@@ -1,13 +1,19 @@
+"use client"
 import React from 'react'
-import AdminDashboard from "@/components/dashboard/AdminDashboard";
-import ManagerDashboard from "@/components/dashboard/ManagerDashboard";
+import AdminDashboard from "@/components/dashboard/ManagerDashboard";
+import ManagerDashboard from "@/components/dashboard/StaffManagerDashboard";
+import { useUserTypeStore } from '@/store/use-user-store';
+import SuperAdminDashboard from '@/components/dashboard/SuperAdminDashboard';
 
 function DashboardPage() {
 
-    const user_role = 'admin'
+    const {userType} = useUserTypeStore()
+
+    const user_role = userType;
     const DashboardComponents = {
-        admin: AdminDashboard,
-        manager: ManagerDashboard,
+        manager: AdminDashboard,
+        staff_manager: ManagerDashboard,
+        super_admin:SuperAdminDashboard
     };
 
     const DashboardComponent = DashboardComponents[user_role] || null;
