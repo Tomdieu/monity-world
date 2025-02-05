@@ -32,7 +32,7 @@ export default function TwoFactorVerification({email, phone_number}: { email?: s
 
             setTimeout(()=>{
                 router.push("/confirm-passcode")
-            },3000)
+            },1000)
         }
     }
 
