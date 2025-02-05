@@ -25,6 +25,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Switch } from '@/components/ui/switch'
 import { useRouter } from 'next/navigation'
+import { useUserTypeStore } from '@/store/use-user-store'
 
 const formSchema = z.object({
     enter_as: z.string(),
@@ -37,6 +38,8 @@ const LoginPage = () => {
 
     const router = useRouter()
 
+    const {setUserType} = useUserTypeStore()
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues:{
@@ -46,6 +49,7 @@ const LoginPage = () => {
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
         console.log(values)
+        setUserType(values.enter_as as 'manager' | 'staff_manager' | 'super_admin')
         router.push('/2fa')
     }
 
