@@ -6,7 +6,7 @@ function TransactionsLayout({children}:PropsWithChildren) {
   return (
     <div className='flex gap-2 w-full h-full'>
         <TransactionSidebar className='w-2/12'/>
-        <div className='w-10/12 flex flex-col h-full overflow-y-auto'>
+        <div className='w-10/12 flex flex-1 h-full flex-col overflow-y-auto pb-32'>
             {children}
         </div>
     </div>
