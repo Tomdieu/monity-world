@@ -5,10 +5,12 @@ import Link from "next/link";
 import { ChevronsLeft, ChevronsRight } from 'lucide-react';
 import { usePathname } from "next/navigation";
 import { cn } from '@/lib/utils';
+import { useUserTypeStore } from '@/store/use-user-store';
 
 function DashboardSidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const pathname = usePathname();
+  const {userType} = useUserTypeStore()
 
   const isActiveLink = (url: string) => {
     // Exact match for dashboard
@@ -51,7 +53,8 @@ function DashboardSidebar() {
                 className={cn(
                   'flex flex-col items-center gap-2 p-2 rounded-lg transition-colors',
                   isCollapsed ? 'ml-2 w-14' : 'w-20',
-                  active ? 'bg-primary' : 'hover:bg-neutral-50'
+                  active ? 'bg-primary' : 'hover:bg-neutral-50',
+                  item.isViewBy && !item.isViewBy(userType) && "hidden"
                 )}
               >
                 <div className="p-2 rounded-full bg-neutral-100">
