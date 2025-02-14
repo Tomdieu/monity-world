@@ -1,78 +1,117 @@
 "use client";
-import { TransactionDetails } from "@/components/dashboard/Transactions/TransactionDetails";
-import {
-  AmountDetails,
-  GeneralInformation,
-  InvolvedParties,
-} from "@/components/dashboard/Transactions/Uncomplete";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import TransactionFilter from "@/components/dashboard/Transactions/TransactionFilter";
+import TransactionTable from "@/components/dashboard/Transactions/TransactionTable";
+import { Search } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
-function UncompletedTransactionsPage() {
-  const transactionData = {
-    id: "CM5836hjGx",
-    type: "Transfer",
-    status: "Pending",
-    currency: "XAF",
-    date: "17-01-2024",
-    time: "18:45",
-    amount: "78,200",
-    fees: "750",
-    total: "78 950",
-    reference: "Notes or purpose of the transaction here",
+function TransactionsPage() {
+  const [selectedFilters, setSelectedFilters] = React.useState<
+    Record<string, string>
+  >({});
+  const filterConfigs = [
+    {
+      name: "Date",
+      options: [
+        { label: "Last 7 days", value: "7days" },
+        { label: "Last 30 days", value: "30days" },
+        { label: "Last 90 days", value: "90days" },
+      ],
+    },
+    {
+      name: "Trans type",
+      options: [
+        { label: "All", value: "all" },
+        { label: "Deposit", value: "deposit" },
+        { label: "Withdrawal", value: "withdrawal" },
+      ],
+    },
+    {
+      name: "Trans Status",
+      options: [
+        { label: "All", value: "all" },
+        { label: "Completed", value: "completed" },
+        { label: "Pending", value: "pending" },
+        { label: "Failed", value: "failed" },
+      ],
+    },
+    {
+      name: "Remark",
+      options: [
+        { label: "All", value: "all" },
+        { label: "Good", value: "good" },
+        { label: "Warning", value: "warning" },
+      ],
+    },
+  ];
+
+  const handleFilterChange = (name: string, value: string) => {
+    setSelectedFilters((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
+  const transactions = [
+    {
+      id: '1',
+      type: 'Transfer',
+      transId: '#CM5836hjG7',
+      dateTime: 'Tue-12-11-24',
+      amount: 20000,
+      source: {
+        name: 'Nguh fabs demo',
+        accountId: 'Account ID',
+        avatar: '/images/img2.svg'
+      },
+      destination: {
+        name: 'Nguh fabs demo',
+        accountId: 'Account ID',
+        avatar: '/images/img2.svg'
+      },
+      status: 'Pending' as TransactionStatus,
+      remark: 'Processing' as RemarkStatus
+    },
+    // Add more sample transactions
+  ];
+
+  const router = useRouter()
+
+  const handleReset = () => {
+    setSelectedFilters({});
+  };
   return (
-    <div className="flex flex-col gap-5 overflow-y-auto p-5">
-      <div className="flex items-center gap-2">
-        <Button
-          size={"icon"}
-          className="rounded-full bg-primary/10 hover:bg-primary/20"
-        >
-          <ArrowLeft className="size-4 text-primary" />
-        </Button>
-        <span className="font-semibold text-muted-foreground">Return</span>
-      </div>
-      <div className="space-y-6 p-6">
-        <GeneralInformation
-          transactionId="#CM5836hjGx"
-          transactionType="Tranfer"
-          status={{ status: "Pending", color: "yellow" }}
-          currency="XAF"
-          date="17-01-2024"
-          time="18:45"
-        />
-
-        <AmountDetails
-          transactionAmount={78200}
-          transactionFees={750}
-          totalDebited={78950}
-          reference="Notes or purpose of the transaction here"
-        />
-        <InvolvedParties
-          sender={{
-            name: "Nguh fabs demo",
-            accountId: "Account ID",
-            avatar: "/images/img1.png",
-          }}
-          recipient={{
-            name: "Nguh fabs demo",
-            accountId: "Account ID",
-            avatar: "/images/img1.png",
-          }}
-          paymentMethod="Digital wallet"
-          onViewProfile={() => {}}
-        />
-        <div className="flex items-center w-full justify-center gap-5 bg-primary/5 p-5 rounded-lg">
-          <Button variant={"destructive"} size={"lg"}>Abort transaction</Button>
-          <Button className="bg-success hover:bg-success/90 text-white" size={"lg"}>Confirm transaction</Button>
-
+    <div className="flex flex-col gap-5 overflow-y-auto">
+      <div className="flex flex-col gap-4">
+        <div className="w-full flex">
+          <form className="flex items-center gap-4 w-8/12">
+            <div className="flex items-center p-3 py-2 gap-2 border rounded-full flex-1">
+              <Search className="size-5 text-muted-foreground" />
+              <input
+                className="border-none outline-none flex-1 bg-transparent"
+                placeholder="Search transactions"
+                type="search"
+              />
+            </div>
+            <button className="rounded-full bg-primary p-2 h-full px-20 font-medium text-white">
+              Search
+            </button>
+          </form>
         </div>
+        <TransactionFilter
+          filters={filterConfigs}
+          onFilterChange={handleFilterChange}
+          onReset={handleReset}
+        />
+      </div>
+      <div className="bg-white rounded-lg p-0">
 
+      <TransactionTable onIdClick={(id)=>{
+        router.push(`/dashboard/transactions/uncompleted/${id}`)
+      }} transactions={transactions} className="border-spacing-1" />
       </div>
     </div>
   );
 }
 
-export default UncompletedTransactionsPage;
+export default TransactionsPage;
