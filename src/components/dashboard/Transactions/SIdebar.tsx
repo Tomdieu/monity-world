@@ -38,7 +38,7 @@ function TransactionSidebar({ className }: { className?: string }) {
         <GoDotFill
           className={cn(
             "size-4",
-            isActive ? "text-white" : "text-primary group-hover:text-white"
+            isActive ? "text-red-500" : "text-red-500 group-hover:text-white"
           )}
         />
       ),
@@ -50,7 +50,7 @@ function TransactionSidebar({ className }: { className?: string }) {
         <GoDotFill
           className={cn(
             "size-4",
-            isActive ? "text-white" : "text-black "
+            isActive ? "text-black" : "text-black "
           )}
         />
       ),
@@ -97,8 +97,8 @@ function TransactionSidebar({ className }: { className?: string }) {
         {sidebarLinks.map(({ href, label, icon }) => {
           const isActiveLink = (url: string) => {
             // Exact match for dashboard
-            if (url === "/dashboard/users") {
-              return pathname === "/dashboard/users";
+            if (url === "/dashboard/transactions") {
+              return pathname === "/dashboard/transactions";
             }
             // For other routes, check if the pathname starts with the URL
             // This prevents partial matches like /dashboard matching /dashboard-settings
