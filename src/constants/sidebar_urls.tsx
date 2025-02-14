@@ -1,19 +1,24 @@
-import { LayoutDashboard,ArrowRightLeft } from 'lucide-react'
+import { LayoutDashboard, ArrowRightLeft, Key } from 'lucide-react'
 import { LuUsersRound } from "react-icons/lu";
 import { BsPiggyBank } from "react-icons/bs";
 import { CiCreditCard1 } from "react-icons/ci";
 import Image from "next/image";
-import { CiDollar } from "react-icons/ci";
 import { BiSupport } from "react-icons/bi";
-const ProjectIcon = ({className}:{className?:string})=><Image src={"/icons/project-icon.svg"} alt={"project icon"} width={"24"} height={24}  className={className}/>
+const ProjectIcon = ({ className }: { className?: string }) => <Image src={"/icons/project-icon.svg"} alt={"project icon"} width={"24"} height={24} className={className} />
 
-const FinanceIcon = ({className}:{className?:string})=><Image src={"/icons/finance-icon.svg"} alt={"finance icon"} width={"24"} height={24}  className={className}/>
+const FinanceIcon = ({ className }: { className?: string }) => <Image src={"/icons/finance-icon.svg"} alt={"finance icon"} width={"24"} height={24} className={className} />
 
 export const sidebarUrls = [
     {
         "title": "Dashboard",
         "icon": LayoutDashboard,
         "url": "/dashboard"
+    },
+    {
+        "title": "Control",
+        "icon": Key,
+        "url": "/dashboard/control",
+        "isViewBy": (userType: 'manager' | 'staff_manager' | 'super_admin') => userType == 'staff_manager' || userType == 'super_admin'
     },
     {
         "title": "Users",
@@ -26,28 +31,28 @@ export const sidebarUrls = [
         "url": "/dashboard/transactions"
     },
     {
-        "title":"Savings",
+        "title": "Savings",
         "icon": BsPiggyBank,
-        "url":"/dashboard/savings"
+        "url": "/dashboard/savings"
     },
     {
-        "title":"Cards",
+        "title": "Cards",
         "icon": CiCreditCard1,
-        "url":"/dashboard/cards"
+        "url": "/dashboard/cards"
     },
     {
-        "title":"Projects",
+        "title": "Projects",
         "icon": ProjectIcon,
-        "url":"/dashboard/projects"
+        "url": "/dashboard/projects"
     },
     {
-        "title":"Finance",
+        "title": "Finance",
         "icon": FinanceIcon,
-        "url":"/dashboard/finances"
+        "url": "/dashboard/finances"
     },
     {
-        "title":"Support",
+        "title": "Support",
         "icon": BiSupport,
-        "url":"/dashboard/support"
+        "url": "/dashboard/support"
     }
 ]
